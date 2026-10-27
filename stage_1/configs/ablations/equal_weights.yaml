@@ -1,0 +1,5 @@
+# Table 6, "Equal weights (1:1:1)": fixed segmentation weights instead of learned
+# uncertainty weighting, rescaled so that their sum is unchanged.
+_base_: ../final.yaml
+loss:
+  seg_weighting: fixed

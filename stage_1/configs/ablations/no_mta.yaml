@@ -1,0 +1,4 @@
+# Table 6, "No L_MTA": presence-consistency loss removed.
+_base_: ../final.yaml
+loss:
+  mta_weight: 0.0

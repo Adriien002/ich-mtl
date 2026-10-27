@@ -1,0 +1,4 @@
+# Table 5: fully shared decoder, dataset-specific 1x1 convolutions only.
+_base_: ../final.yaml
+model:
+  decoder_sharing: full

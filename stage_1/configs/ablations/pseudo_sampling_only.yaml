@@ -1,0 +1,5 @@
+# Table 6, "Sampling prior only": the pseudo-masks still guide the crop,
+# but are no longer a dense segmentation target.
+_base_: ../final.yaml
+loss:
+  pseudo_weight: 0.0

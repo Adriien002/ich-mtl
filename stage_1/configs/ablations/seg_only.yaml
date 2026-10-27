@@ -1,0 +1,9 @@
+# Table 2, "Segmentation-only multi-dataset": the three segmentation datasets only,
+# without the classification cohort, the classification head loss, pseudo-masks or L_MTA.
+_base_: ../final.yaml
+data:
+  classification: false
+loss:
+  cls_weight: 0.0
+  pseudo_weight: 0.0
+  mta_weight: 0.0

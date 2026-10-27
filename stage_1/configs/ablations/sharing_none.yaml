@@ -1,0 +1,4 @@
+# Table 5: one full decoder per segmentation dataset (40.92 M parameters).
+_base_: ../final.yaml
+model:
+  decoder_sharing: none

@@ -1,0 +1,7 @@
+# Table 6, "No pseudo-mask": random crop of the classification positives and no dense
+# target. Validation keeps the guided crop, so that val metrics stay comparable.
+_base_: ../final.yaml
+data:
+  cls_crop: random
+loss:
+  pseudo_weight: 0.0
