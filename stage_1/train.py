@@ -128,14 +128,6 @@ def main():
     # Best checkpoint = highest mean validation Dice over the segmentation datasets.
     callbacks = [ModelCheckpoint(dirpath=run_dir, filename="best_{epoch:03d}_{val_mean_dice_segds:.4f}",
                                  monitor="val_mean_dice_segds", mode="max", save_top_k=3, save_last=True)]
-    if cfg["data"]["classification"]:
-        # Classification overfits early: its best checkpoint is kept separately.
-        callbacks += [
-            ModelCheckpoint(dirpath=run_dir, filename="best_cls_{epoch:03d}_{val_cls_loss:.4f}",
-                            monitor="val_cls_loss", mode="min", save_top_k=1),
-            ModelCheckpoint(dirpath=run_dir, filename="best_clsall_{epoch:03d}_{val_cls_loss_all:.4f}",
-                            monitor="val_cls_loss_all", mode="min", save_top_k=1),
-        ]
 
     use_gpu = torch.cuda.is_available()
     trainer = pl.Trainer(
