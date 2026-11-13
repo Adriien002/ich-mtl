@@ -1,7 +1,14 @@
 # Data
 
 The code reads every dataset under one root, set by `ICH_DATA_ROOT` (default: `stage_1/datasets`).
-The splits used in the paper are in [`splits/`](../splits).
+The splits used in the paper are in [`splits/`](../splits):
+
+- `splits/mbh_seg.csv` and `splits/instance.csv` (`file,split`): put each image in
+  `<dataset>/<split>/img/` and its mask, under the same file name, in `<dataset>/<split>/seg/`.
+- `splits/MBH_label_case/*.csv`: copy them as is into `$ICH_DATA_ROOT/MBH_label_case/splits/`.
+- `splits/in_house.csv` (`file,patientID,rsna_image_id,split`): RSNA 2019 patient IDs.
+  When a file name carries `_instUid_<id>`, `<id>` is the RSNA image ID of one slice of the
+  scan and tells apart the studies of a patient who has several.
 
 ```
 $ICH_DATA_ROOT/
@@ -18,7 +25,7 @@ In `img/` and `seg/`, a mask must have the same file name as its image.
 
 | Dataset | Source | Notes |
 |---|---|---|
-| MBH (segmentation and classification) | [Zenodo](https://doi.org/10.5281/zenodo.15094748) | Several annotators labeled the segmentation volumes: we use the masks of **Laurent Létourneau-Guillon** (files `MBH_SEG_2025_LLG_*`, co-author of the paper). |
+| MBH (segmentation and classification) | [Zenodo](https://doi.org/10.5281/zenodo.15094748) | Several annotators labeled the segmentation volumes. The 238 segmentation volumes come from two sources: 192 use the masks of **Laurent Létourneau-Guillon** (co-author of the paper), stored as `MBH_SEG_2025_LLG_2025_06_12_<patientID_studyID>.nii.gz` (in the Zenodo release, the LLG mask is `label_annot_1.nii.gz` when it exists, otherwise `label_annot_2.nii.gz`); 46 come from the MBH challenge validation set, where each case folder holds `image.nii.gz` and one mask per annotator (`label_annot_1.nii.gz`, `label_annot_2.nii.gz`, ...): we use only `label_annot_5.nii.gz`, stored as `MBH_v2_val_5_<patientID_studyID>.nii.gz`; the other annotators' masks are not used. `splits/mbh_seg.csv` gives the file name and split of each volume. Inter-annotator variability on MBH is high: training or evaluating with masks from other annotators will change the segmentation results. |
 | INSTANCE 2022 | [instance-challenge.org](https://instance-challenge.org/) | binary masks |
 | In-house | not yet public | 359 RSNA 2019 scans annotated for ICH, IVH and PHE (Wu et al.). Will be released through the RSNA Medical Imaging and Resource Archive (MIRA), pending RSNA approval. Optional: training runs without it. |
 | PhysioNet CT-ICH | [PhysioNet](https://doi.org/10.13026/G1KQ-SC84) | keep the original layout; masks coded 0/255 |
